@@ -1,0 +1,60 @@
+.main {
+    background-color: var(--cor-cinza-claro);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 100px;
+}
+
+.main__wrapper__turmas__wrapper {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    margin: 5px;
+    overflow-y: auto;
+    height: 75vh;
+}
+
+.turma__wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    background: var(--cor-cinza-escuro);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.turma__wrapper i {
+    display: none;
+}
+.turma__wrapper i:first-of-type {
+    margin-left: 10px;
+}
+.turma__wrapper:hover {
+    filter: contrast(.9);
+}
+.turma__wrapper:hover i {
+    display: block;
+    animation-name: surgir;
+    animation-duration: 0.4s;
+}
+@keyframes surgir {
+    from {
+        transform: translateX(-30px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.turma__wrapper + .turma__wrapper {
+    margin-top: 10px;
+}
+
+.turma__wrapper i {
+    margin-right: 10px;
+}
