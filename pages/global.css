@@ -4,23 +4,25 @@
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    color: #fff;
     box-sizing: border-box;
+    --cor-cinza-escuro: rgb(39, 39, 39);
     --cor-cinza: rgb(58, 58, 58);
     --cor-cinza-claro: rgb(53, 53, 53);
+    --cor-banco: #fff;
+    color: var(--cor-banco);
+}
+
+.logobar {
+    margin-bottom: 50px;
 }
 .logo__img {
-    width: 400px;
-    margin-bottom: 50px;
+    width: 300px;
 }
 
 html {
-    font-size: 20px;
+    font-size: 17px;
 }
 
-h1, h2 {
+h1, h2, h3 {
     font-family: 'Poppins', sans-serif;
-}
-p {
-    font-size: 1.2rem;
 }
