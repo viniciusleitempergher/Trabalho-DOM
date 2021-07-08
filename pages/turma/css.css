@@ -1,0 +1,29 @@
+.main {
+  background-color: var(--cor-cinza-claro);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 100px;
+}
+.main__wrapper__alunos {
+  display: grid;
+  grid-template-columns: repeat(6, fill);
+  align-items: center;
+  justify-items: center;
+  max-height: calc(75/100 * 100vh);
+  overflow-y: auto;
+  grid-row: 1 / 3;
+  margin: 5px;
+}
+.alunos__title {
+  grid-column: 1 / 7;
+}
+.alunos__header {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.alunos__info {
+  margin-bottom: 10px;
+}
