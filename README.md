@@ -15,7 +15,7 @@ O projeto deve ter uma classe Turma que contenha os seguintes atributos:<br>
 Essa classe deve implementar os seguintes métodos:<br>
  * constructor(codigoTurma, nomeTurma)
  * cadastrarAluno(aluno)
- * removerAluno(matriculaAluno)   
+ * removerAluno(matriculaAluno)
 
 <h2> Willian </h2>
 O projeto deve ter uma classe Aluno que contenha os atributos:<br>
