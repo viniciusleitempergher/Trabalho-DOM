@@ -2,7 +2,7 @@ import popup from '../popup/modal.js'
 import { Turma } from './turma.js'
 
 document.querySelector("#adicionarbtn").addEventListener("click", adicionarTurma)
-document.querySelector("#editarbtn").addEventListener("click", editarTurma)
+document.querySelector("#editarbtn").addEventListener("click", selectTurma)
 document.querySelector("#removerbtn").addEventListener("click", removerTurma)
 
 let turmas = []
@@ -19,10 +19,14 @@ function adicionarTurma() {
     form.addEventListener("submit", (e) => {
         nome = document.querySelector("#input__nometurma").value
         document.body.removeChild(document.querySelector(".modalpopup"))
-        codigo = 1
+
+        if (turmas.length >= 1) {
+            codigo = turmas[turmas.length - 1].codigo + 1
+        } else {
+            codigo = 1
+        }
 
         let turma = new Turma(codigo, nome)
-
         turmas.push(turma)
 
         localStorage.setItem("turmas", JSON.stringify(turmas))
@@ -37,12 +41,50 @@ function adicionarTurma() {
 }
 
 window.addEventListener("load", () => {
-    console.log(localStorage.getItem("turmas"));
     atualizarTurmas()
 })
 
+function selectTurma() {
+    for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
+        botao.style.display = "none"
+    }
+
+    let menu = document.querySelector(".main__wrapper__menu")
+
+    let cancelAction = document.createElement("button")
+    cancelAction.className = "main__wrapper__menu__button"
+    cancelAction.textContent = "Cancelar"
+
+    let texto = document.createElement("h3")
+    texto.textContent = "Clique na sala que quer alterar"
+
+    menu.prepend(cancelAction)
+    menu.prepend(texto)
+}
+
 function editarTurma() {
-    
+
+    popup(`
+    <h2 class="modalpopup__h2">Editar Turma:</h2>
+    <input type="text" class="modalpopup__form__input" id="input__nometurma" placeholder="Nome da Turma">
+    `)
+    let form = document.querySelector(".modalpopup__form")
+
+    form.addEventListener("submit", (e) => {
+        nome = document.querySelector("#input__nometurma").value
+        document.body.removeChild(document.querySelector(".modalpopup"))
+
+        
+
+        localStorage.setItem("turmas", JSON.stringify(turmas))
+        atualizarTurmas()
+        e.preventDefault()
+    })
+    form.addEventListener("keydown", (e) => {
+        if (e.key == "Escape") {
+            cancel.click()
+        }
+    })
 }
 
 function removerTurma() {
@@ -50,7 +92,11 @@ function removerTurma() {
 }
 
 function atualizarTurmas() {
-    turmas = JSON.parse(localStorage.getItem("turmas"))
+    if (localStorage.getItem("turmas")) {
+        turmas = JSON.parse(localStorage.getItem("turmas"))
+    } else {
+        turmas = []
+    }
 
     let listaTurmas = document.querySelector(".main__wrapper__turmas__wrapper")
 

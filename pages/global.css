@@ -74,6 +74,10 @@ h1, h2, h3 {
 .main__wrapper__menu__button + .main__wrapper__menu__button {
     margin-top: 7px;
 }
+.main__wrapper__menu h3 {
+    text-align: center;
+    margin: 15px 0;
+}
 
 .main__wrapper__menu__input {
     margin-top: 14px;
