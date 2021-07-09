@@ -3,7 +3,7 @@ import { Turma } from './turma.js'
 
 document.querySelector("#adicionarbtn").addEventListener("click", adicionarTurma)
 document.querySelector("#editarbtn").addEventListener("click", () => selectTurma("Clique na turma para editar", editarTurma))
-document.querySelector("#removerbtn").addEventListener("click", removerTurma)
+document.querySelector("#removerbtn").addEventListener("click", () => selectTurma("Clique na turma para deletar", removerTurma))
 
 let turmas = []
 
@@ -58,7 +58,7 @@ function selectTurma(txt, callback) {
     let texto = document.createElement("h3")
     texto.textContent = txt
 
-    let callbackComCodigo = function(e) {
+    let callbackComCodigo = function (e) {
         let hashTagsSplitted = e.target.textContent.split("#")
         callback(hashTagsSplitted[hashTagsSplitted.length - 1])
         voltaAoNormal()
@@ -107,6 +107,7 @@ function editarTurma(codigo) {
             if (turma.codigo == codigo) {
                 turma.editarTurma(nome)
                 turmas[index] = turma
+                break
             }
             index++
         }
@@ -126,8 +127,21 @@ function editarTurma(codigo) {
     })
 }
 
-function removerTurma() {
+function removerTurma(codigo) {
+    turmas = getTurmas()
 
+    
+
+    let index = 0
+    for (let turma of turmas) {
+        if (turma.codigo == codigo) {
+            if (!confirm(`Deseja realmente excluir a turma: ${turma.nome} #${turma.codigo}`)) return;
+            turmas.splice(index, 1)
+        }
+        index++
+    }
+    localStorage.setItem("turmas", JSON.stringify(turmas))
+    atualizarTurmas()
 }
 
 function atualizarTurmas() {
