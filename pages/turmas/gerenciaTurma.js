@@ -4,6 +4,11 @@ import { Turma } from './turma.js'
 document.querySelector("#adicionarbtn").addEventListener("click", adicionarTurma)
 document.querySelector("#editarbtn").addEventListener("click", () => selectTurma("Clique na turma para editar", editarTurma))
 document.querySelector("#removerbtn").addEventListener("click", () => selectTurma("Clique na turma para deletar", removerTurma))
+document.querySelector("#button__search").addEventListener("click", () => atualizarTurmas(
+    document.querySelector("#inputTurmaSearch").value,
+    document.querySelector("#inputCodigoSearch").value
+))
+document.querySelector("#button__clear__search").addEventListener("click", clearSearch)
 
 let turmas = []
 
@@ -30,7 +35,7 @@ function adicionarTurma() {
         turmas.push(turma)
 
         localStorage.setItem("turmas", JSON.stringify(turmas))
-        atualizarTurmas()
+        atualizarTurmas("", "")
         e.preventDefault()
     })
     form.addEventListener("keydown", (e) => {
@@ -41,7 +46,7 @@ function adicionarTurma() {
 }
 
 window.addEventListener("load", () => {
-    atualizarTurmas()
+    atualizarTurmas("", "")
 })
 
 function selectTurma(txt, callback) {
@@ -113,7 +118,7 @@ function editarTurma(codigo) {
         }
 
         localStorage.setItem("turmas", JSON.stringify(turmas))
-        atualizarTurmas()
+        atualizarTurmas("", "")
         e.preventDefault()
     })
     form.addEventListener("keydown", (e) => {
@@ -130,8 +135,6 @@ function editarTurma(codigo) {
 function removerTurma(codigo) {
     turmas = getTurmas()
 
-    
-
     let index = 0
     for (let turma of turmas) {
         if (turma.codigo == codigo) {
@@ -141,10 +144,10 @@ function removerTurma(codigo) {
         index++
     }
     localStorage.setItem("turmas", JSON.stringify(turmas))
-    atualizarTurmas()
+    atualizarTurmas("", "")
 }
 
-function atualizarTurmas() {
+function atualizarTurmas(pesquisa, codigo) {
     if (localStorage.getItem("turmas")) {
         turmas = JSON.parse(localStorage.getItem("turmas"))
     } else {
@@ -161,13 +164,15 @@ function atualizarTurmas() {
     }
 
     for (let turma of turmas) {
-        document.querySelector(".main__wrapper__turmas__wrapper").insertAdjacentHTML("beforeend", `
-        <div class="turma__wrapper">
-            <p>${turma.nome} #${turma.codigo}</p>
-            <i class="fas fa-edit button__editar-turma"></i>
-            <i class="fas fa-trash button__remover-turma"></i>
-        </div>
+        if (turma.nome.toLowerCase().includes(pesquisa.toLowerCase()) && ((turma.codigo + "") == codigo || codigo == "")) {
+            document.querySelector(".main__wrapper__turmas__wrapper").insertAdjacentHTML("beforeend", `
+            <div class="turma__wrapper">
+                <p>${turma.nome} #${turma.codigo}</p>
+                <i class="fas fa-edit button__editar-turma"></i>
+                <i class="fas fa-trash button__remover-turma"></i>
+            </div>
         `)
+        }
     }
 }
 
@@ -182,4 +187,11 @@ function getTurmas() {
     }
 
     return turmas
+}
+
+function clearSearch() {
+    for (let input of document.querySelectorAll(".main__wrapper__menu__input")) {
+        input.value = ""
+    }
+    document.querySelector("#button__search").click()
 }
