@@ -20,7 +20,12 @@ function adicionarTurma() {
 
     let nome, codigo
     let form = document.querySelector(".modalpopup__form")
+    let cancel = document.querySelectorAll(".modalpopup__form__button")[1]
 
+    cancel.addEventListener("click", (e) => {
+        e.preventDefault()
+        document.querySelector(".modalpopup").remove()
+    })
     form.addEventListener("submit", (e) => {
         nome = document.querySelector("#input__nometurma").value
         document.body.removeChild(document.querySelector(".modalpopup"))

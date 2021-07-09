@@ -71,3 +71,7 @@
 .button__search + .button__search {
     margin-left: 7px;
 }
+.button__search p {
+    display: inline-flex;
+    color: var(--cor-cinza);
+}
