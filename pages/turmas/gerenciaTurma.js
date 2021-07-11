@@ -54,9 +54,18 @@ window.addEventListener("load", () => {
     atualizarTurmas("", "")
 })
 
+let redirecionarParaTurma = function (e) {
+    console.log("aoba");
+    window.location.href = "../turma/index.html"
+}
+
 function selectTurma(txt, callback) {
     for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
         botao.style.display = "none"
+    }
+
+    for (let turma of document.querySelectorAll(".turma__wrapper")) {
+        turma.removeEventListener("click", redirecionarParaTurma)
     }
 
     let menu = document.querySelector(".main__wrapper__menu")
@@ -71,10 +80,10 @@ function selectTurma(txt, callback) {
     let callbackComCodigo = function (e) {
         let hashTagsSplitted = e.target.textContent.split("#")
         callback(hashTagsSplitted[hashTagsSplitted.length - 1])
-        voltaAoNormal()
         for (let turma of document.querySelectorAll(".turma__wrapper")) {
             turma.removeEventListener("click", callbackComCodigo)
         }
+        voltaAoNormal()
     }
 
     for (let turma of document.querySelectorAll(".turma__wrapper")) {
@@ -82,7 +91,11 @@ function selectTurma(txt, callback) {
     }
 
     cancelAction.addEventListener("click", () => {
+        for (let turma of document.querySelectorAll(".turma__wrapper")) {
+            turma.removeEventListener("click", callbackComCodigo)
+        }
         voltaAoNormal()
+        atualizarTurmas("", "")
     })
 
     // Sai do modo de edição e mostra os botões de novo.
@@ -134,6 +147,7 @@ function editarTurma(codigo) {
     cancel.addEventListener("click", (e) => {
         e.preventDefault()
         document.querySelector(".modalpopup").remove()
+        atualizarTurmas("", "")
     })
 }
 
@@ -175,13 +189,20 @@ function atualizarTurmas(pesquisa, codigo) {
         `)
         }
     }
+    addRedirectListeners()
+}
+
+function addRedirectListeners() {
+    for (let turma of document.querySelectorAll(".turma__wrapper")) {
+        turma.addEventListener("click", redirecionarParaTurma)
+    }
 }
 
 // Pega as informações da memória e retorna elas num objeto do tipo Turma
 function getTurmas() {
     let turmas = [],
         turmasWithoutType
-    
+
     if (localStorage.getItem("turmas")) {
         turmasWithoutType = JSON.parse(localStorage.getItem("turmas"))
     } else {
