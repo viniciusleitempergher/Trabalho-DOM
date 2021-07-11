@@ -153,11 +153,7 @@ function removerTurma(codigo) {
 }
 
 function atualizarTurmas(pesquisa, codigo) {
-    if (localStorage.getItem("turmas")) {
-        turmas = JSON.parse(localStorage.getItem("turmas"))
-    } else {
-        turmas = []
-    }
+    turmas = getTurmas()
 
     let listaTurmas = document.querySelector(".main__wrapper__turmas__wrapper")
 
@@ -183,11 +179,22 @@ function atualizarTurmas(pesquisa, codigo) {
 
 // Pega as informações da memória e retorna elas num objeto do tipo Turma
 function getTurmas() {
-    let turmas = []
-    let turmasWithoutType = JSON.parse(localStorage.getItem("turmas"))
+    let turmas = [],
+        turmasWithoutType
+    
+    if (localStorage.getItem("turmas")) {
+        turmasWithoutType = JSON.parse(localStorage.getItem("turmas"))
+    } else {
+        return []
+    }
 
     for (let turmaWithoutType of turmasWithoutType) {
         let turma = new Turma(turmaWithoutType.codigo, turmaWithoutType.nome)
+
+        for (let aluno of turmaWithoutType.alunos) {
+            turma.cadastrarAluno(aluno)
+        }
+
         turmas.push(turma)
     }
 
