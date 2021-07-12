@@ -1,4 +1,6 @@
+import { Turma } from '../turmas/turma.js'
 import { Aluno } from './aluno.js'
+import popup from '../popup/modal.js'
 
 document.querySelector("#adicionarbtn").addEventListener("click", adicionarAluno)
 
@@ -7,17 +9,29 @@ const codigoTurma = queryString.get("codigo")
 
 const turma = getTurma()
 
+document.querySelector(".alunos__title h2").textContent = turma.nome
+
 let alunos = turma.alunos
 
+window.addEventListener("load", () => {
+  atualizarAlunos("", "")
+})
+
 function getTurma() {
-  let turmas
+  let turmasWithoutType
 
   if (localStorage.getItem("turmas")) {
-    turmas = JSON.parse(localStorage.getItem("turmas"))
+    turmasWithoutType = JSON.parse(localStorage.getItem("turmas"))
   }
 
-  for (let turma of turmas) {
-    if (turma.codigo == codigoTurma) {
+  for (let turmaWithoutType of turmasWithoutType) {
+    if (turmaWithoutType.codigo == codigoTurma) {
+      let turma = new Turma(turmaWithoutType.codigo, turmaWithoutType.nome)
+
+      for (let aluno of turmaWithoutType.alunos) {
+        turma.cadastrarAluno(aluno)
+      }
+
       return turma
     }
   }
@@ -26,7 +40,7 @@ function getTurma() {
 }
 
 function atualizarAlunos(pesquisa, matricula) {
-  alunos = getAlunos()
+  alunos = turma.alunos
 
   let listaAlunos = document.querySelector(".main__wrapper__alunos")
 
@@ -53,5 +67,8 @@ function atualizarAlunos(pesquisa, matricula) {
 }
 
 function adicionarAluno() {
-
+  popup(`
+  <h2 class="modalpopup__h2">Adicionar Turma:</h2>
+  <input type="text" class="modalpopup__form__input" id="input__nometurma" placeholder="Nome da Turma">
+      `)
 }
