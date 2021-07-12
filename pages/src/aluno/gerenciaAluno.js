@@ -72,15 +72,16 @@ function atualizarAlunos(pesquisa, matricula) {
   for (let aluno of alunos) {
     if (aluno.nome.toLowerCase().includes(pesquisa.toLowerCase()) && aluno.matricula.includes(matricula)) {
       document.querySelector(".main__wrapper__alunos").insertAdjacentHTML("beforeend", `
-            <p class="alunos__info" id="alunos__info-matricula">${aluno.matricula}</p>
+            <p class="alunos__info alunos__info-matricula">${aluno.matricula}</p>
             <p class="alunos__info">${aluno.nome}</p>
-            <p class="alunos__info">${aluno.telefone}</p>
-            <p class="alunos__info">${aluno.email}</p>
-            <p class="alunos__info">${Array.from(aluno.notas) || ""}</p>
-            <p class="alunos__info">${aluno.calculaMedia() || ((aluno.calculaMedia() == 0) ? "0" : "")}</p>
+            <p class="alunos__info noneOnMobile">${aluno.telefone}</p>
+            <p class="alunos__info noneOnMobile">${aluno.email}</p>
+            <p class="alunos__info noneOnMobile">${Array.from(aluno.notas) || ""}</p>
+            <p class="alunos__info noneOnMobile">${aluno.calculaMedia() || ((aluno.calculaMedia() == 0) ? "0" : "")}</p>
       `)
     }
   }
+  abrirAlunoOnMobile()
 }
 
 function adicionarAluno() {
@@ -90,7 +91,7 @@ function adicionarAluno() {
       <input type="text" class="modalpopup__form__input" id="input-nome" placeholder="Nome">
       <input type="text" class="modalpopup__form__input" id="input-telefone" placeholder="Telefone">
       <input type="text" class="modalpopup__form__input" id="input-email" placeholder="Email">
-      `)
+      `, true)
 
   let form = document.querySelector(".modalpopup__form")
   let cancel = document.querySelectorAll(".modalpopup__form__button")[1]
@@ -136,7 +137,7 @@ function selecionarAluno(txt, callback) {
   let divAround = document.createElement("div")
   let cancelAction = document.createElement("button")
 
-  cancelAction.className = "main__wrapper__menu__button"
+  cancelAction.classList.add("main__wrapper__menu__button")
   cancelAction.textContent = "Cancelar"
 
   let texto = document.createElement("h3")
@@ -145,8 +146,8 @@ function selecionarAluno(txt, callback) {
   let callbackComMatricula = function (e) {
     let pMatricula = e.target
 
-    while (pMatricula.id != "alunos__info-matricula") {
-      pMatricula = pMatricula.previousSibling
+    while (pMatricula.classList && !pMatricula.classList.contains("alunos__info-matricula")) {
+      pMatricula = pMatricula.previousElementSibling
     }
 
     callback(pMatricula.textContent)
@@ -187,7 +188,7 @@ function cadastrarNotas(matricula) {
     <input type="text" class="modalpopup__form__input" id="input-nota1" placeholder="Nota 1">
     <input type="text" class="modalpopup__form__input" id="input-nota2" placeholder="Nota 2">
     <input type="text" class="modalpopup__form__input" id="input-nota3" placeholder="Nota 3">
-  `)
+  `, true)
 
   let form = document.querySelector(".modalpopup__form")
   let cancel = document.querySelectorAll(".modalpopup__form__button")[1]
@@ -235,7 +236,7 @@ function editarAluno(matricula) {
   <input type="text" class="modalpopup__form__input" id="input-nome" placeholder="Nome">
   <input type="text" class="modalpopup__form__input" id="input-telefone" placeholder="Telefone">
   <input type="text" class="modalpopup__form__input" id="input-email" placeholder="Email">
-  `)
+  `, true)
 
   let turmas = JSON.parse(localStorage.getItem("turmas"))
 
@@ -301,12 +302,12 @@ function removerAluno(matricula) {
 
   let index = 0
   for (let aluno of turma.alunos) {
-      if (aluno.matricula == matricula) {
-          if (!confirm(`Deseja realmente excluir o aluno: \n${aluno.nome} \nMatrícula: ${aluno.matricula}\n?`)) return;
-          turma.alunos.splice(index, 1)
-          break
-      }
-      index++
+    if (aluno.matricula == matricula) {
+      if (!confirm(`Deseja realmente excluir o aluno: \n${aluno.nome} \nMatrícula: ${aluno.matricula}\n?`)) return;
+      turma.alunos.splice(index, 1)
+      break
+    }
+    index++
   }
 
   let turmas = JSON.parse(localStorage.getItem("turmas"))
@@ -323,7 +324,77 @@ function removerAluno(matricula) {
 
 function clearSearch() {
   for (let input of document.querySelectorAll(".main__wrapper__menu__input")) {
-      input.value = ""
+    input.value = ""
   }
   document.querySelector("#button__search").click()
+}
+
+window.addEventListener("resize", (e) => {
+  abrirAlunoOnMobile()
+})
+
+
+let abrirAluno = function (e) {
+  let pMatricula = e.target
+
+  while (pMatricula.classList && !pMatricula.classList.contains("alunos__info-matricula")) {
+    pMatricula = pMatricula.previousElementSibling
+  }
+
+  for (let aluno of turma.alunos) {
+    if (pMatricula.textContent == aluno.matricula) {
+      popup(`
+        <div class="popup__alunos">
+          <h2 class="popup__alunos-title">${aluno.nome}</h2>
+
+          <p class="popup__alunos-header">Matrícula</p>
+          <p class="popup__alunos__info">${aluno.matricula}</p>
+          
+          <p class="popup__alunos-header">Telefone</p>
+          <p class="popup__alunos__info">${aluno.telefone}</p>
+          
+          <p class="popup__alunos-header">Email</p>
+          <p class="popup__alunos__info">${aluno.email}</p>
+          
+          <p class="popup__alunos-header">Notas</p>
+          <p class="popup__alunos__info">${Array.from(aluno.notas) || ""}</p>
+          
+          <p class="popup__alunos-header">Média</p>
+          <p class="popup__alunos__info">${aluno.calculaMedia() || ((aluno.calculaMedia() == 0) ? "0" : "")}</p>
+        </div>
+      `, false)
+
+      let form = document.querySelector(".modalpopup__form")
+      let ok = document.querySelectorAll(".modalpopup__form__button")[0]
+
+      form.addEventListener("submit", (e) => {
+        document.querySelector(".modalpopup").remove()
+        e.preventDefault()
+      })
+
+      break
+    }
+  }
+
+  for (let aluno of document.querySelectorAll(".alunos__info")) {
+    aluno.removeEventListener("click", abrirAluno)
+  }
+}
+
+let active = false
+
+function abrirAlunoOnMobile() {
+  if (window.screen.width <= 520 && !active) {
+    active = true
+
+    for (let alunoP of document.querySelectorAll(".alunos__info")) {
+
+      alunoP.addEventListener("click", abrirAluno)
+    }
+  } else if (active) {
+    for (let aluno of document.querySelectorAll(".alunos__info")) {
+      aluno.removeEventListener("click", abrirAluno)
+    }
+    active = false
+  } 
 }

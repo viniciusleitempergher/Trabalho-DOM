@@ -1,5 +1,8 @@
-.main {
+body {
   background-color: var(--cor-cinza-claro);
+}
+
+.main {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -73,5 +76,39 @@
   }
   .main__wrapper__menu > div {
     align-content: center;
+  }
+
+}
+
+@media screen and (max-width: 520px) {
+  .alunos__title {
+    grid-column: 1 / 3;
+  }
+  .main__wrapper__menu {
+    flex-direction: column;
+    min-width: 100%;
+  }
+  .noneOnMobile {
+    display: none;
+  }
+  .popup__alunos {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+  .popup__alunos-title {
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .popup__alunos-header {
+    margin-top: 10px;
+  }
+  .popup__alunos__info {
+    margin-top: 10px;
+  }
+  .popup__alunos p:last-of-type {
+    margin-bottom: 30px !important;
   }
 }
