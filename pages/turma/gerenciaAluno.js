@@ -3,6 +3,9 @@ import { Aluno } from './aluno.js'
 import popup from '../popup/modal.js'
 
 document.querySelector("#adicionarbtn").addEventListener("click", adicionarAluno)
+document.querySelector("#cadastrarbtn").addEventListener("click", (e) => {
+  selecionarAluno("Clique no aluno para cadastrar", console.log)
+})
 
 const queryString = new URLSearchParams(location.search)
 const codigoTurma = queryString.get("codigo")
@@ -29,7 +32,7 @@ function getTurma() {
       let turma = new Turma(turmaWithoutType.codigo, turmaWithoutType.nome)
 
       for (let aluno of turmaWithoutType.alunos) {
-        turma.cadastrarAluno(aluno)
+        turma.cadastrarAluno(new Aluno(aluno.matricula, aluno.nome, aluno.telefone, aluno.email))
       }
 
       return turma
@@ -54,12 +57,12 @@ function atualizarAlunos(pesquisa, matricula) {
   for (let aluno of alunos) {
     if (aluno.nome.toLowerCase().includes(pesquisa.toLowerCase()) && ((aluno.matricula + "") == matricula || matricula == "")) {
       document.querySelector(".main__wrapper__alunos").insertAdjacentHTML("beforeend", `
-            <p class="alunos__info">${aluno.matricula}</p>
+            <p class="alunos__info" id="alunos__info-matricula">${aluno.matricula}</p>
             <p class="alunos__info">${aluno.nome}</p>
             <p class="alunos__info">${aluno.telefone}</p>
-            <p class="alunos__info">${aluno.email}/p>
+            <p class="alunos__info">${aluno.email}</p>
             <p class="alunos__info">${aluno.notas}</p>
-            <p class="alunos__info">${aluno.calculaMedia()}</p>
+            <p class="alunos__info">${aluno.calculaMedia() || ""}</p>
       `)
     }
   }
@@ -84,9 +87,9 @@ function adicionarAluno() {
   })
   form.addEventListener("submit", (e) => {
     let matricula = document.querySelector("#input-matricula").value,
-        nome = document.querySelector("#input-nome").value,
-        telefone = document.querySelector("#input-telefone").value,
-        email = document.querySelector("#input-email").value
+      nome = document.querySelector("#input-nome").value,
+      telefone = document.querySelector("#input-telefone").value,
+      email = document.querySelector("#input-email").value
 
     document.body.removeChild(document.querySelector(".modalpopup"))
 
@@ -108,4 +111,60 @@ function adicionarAluno() {
       cancel.click()
     }
   })
+}
+
+function selecionarAluno(txt, callback) {
+  for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
+    botao.style.display = "none"
+  }
+
+  // for (let turma of document.querySelectorAll(".turma__wrapper")) {
+  //     turma.removeEventListener("click", redirecionarParaTurma)
+  // }
+
+  let menu = document.querySelector(".main__wrapper__menu")
+
+  let cancelAction = document.createElement("button")
+  cancelAction.className = "main__wrapper__menu__button"
+  cancelAction.textContent = "Cancelar"
+
+  let texto = document.createElement("h3")
+  texto.textContent = txt
+
+  let callbackComMatricula = function (e) {
+    let pMatricula = e.target
+
+    while (pMatricula.id != "alunos__info-matricula") {
+      pMatricula = pMatricula.previousSibling
+    }
+
+    callback(pMatricula.textContent)
+    for (let aluno of document.querySelectorAll(".alunos__info")) {
+      aluno.removeEventListener("click", callbackComMatricula)
+    }
+    voltaAoNormal()
+  }
+
+  for (let aluno of document.querySelectorAll(".alunos__info")) {
+    aluno.addEventListener("click", callbackComMatricula)
+  }
+
+  cancelAction.addEventListener("click", () => {
+    for (let aluno of document.querySelectorAll(".alunos__info")) {
+      aluno.removeEventListener("click", callbackComMatricula)
+    }
+    voltaAoNormal()
+    atualizarAlunos("", "")
+  })
+
+  function voltaAoNormal() {
+    cancelAction.remove()
+    texto.remove()
+    for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
+      botao.style.display = ""
+    }
+  }
+
+  menu.prepend(cancelAction)
+  menu.prepend(texto)
 }
