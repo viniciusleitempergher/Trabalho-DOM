@@ -13,6 +13,12 @@ document.querySelector("#removerbtn").addEventListener("click", (e) => {
   selecionarAluno("Clique no aluno para remover", removerAluno)
 })
 
+document.querySelector("#button__search").addEventListener("click", () => atualizarAlunos(
+  document.querySelector("#input-buscarNomeAluno").value,
+  document.querySelector("#input-buscarMatriculaAluno").value
+))
+document.querySelector("#button__clear__search").addEventListener("click", clearSearch)
+
 const queryString = new URLSearchParams(location.search)
 const codigoTurma = queryString.get("codigo")
 
@@ -64,7 +70,7 @@ function atualizarAlunos(pesquisa, matricula) {
   }
 
   for (let aluno of alunos) {
-    if (aluno.nome.toLowerCase().includes(pesquisa.toLowerCase()) && ((aluno.matricula + "") == matricula || matricula == "")) {
+    if (aluno.nome.toLowerCase().includes(pesquisa.toLowerCase()) && aluno.matricula.includes(matricula)) {
       document.querySelector(".main__wrapper__alunos").insertAdjacentHTML("beforeend", `
             <p class="alunos__info" id="alunos__info-matricula">${aluno.matricula}</p>
             <p class="alunos__info">${aluno.nome}</p>
@@ -311,4 +317,11 @@ function removerAluno(matricula) {
 
   localStorage.setItem("turmas", JSON.stringify(turmas))
   atualizarAlunos("", "")
+}
+
+function clearSearch() {
+  for (let input of document.querySelectorAll(".main__wrapper__menu__input")) {
+      input.value = ""
+  }
+  document.querySelector("#button__search").click()
 }
