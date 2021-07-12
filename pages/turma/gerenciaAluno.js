@@ -6,6 +6,12 @@ document.querySelector("#adicionarbtn").addEventListener("click", adicionarAluno
 document.querySelector("#cadastrarbtn").addEventListener("click", (e) => {
   selecionarAluno("Clique no aluno para cadastrar", cadastrarNotas)
 })
+document.querySelector("#editarbtn").addEventListener("click", (e) => {
+  selecionarAluno("Clique no aluno para editar", editarAluno)
+})
+document.querySelector("#removerbtn").addEventListener("click", (e) => {
+  selecionarAluno("Clique no aluno para remover", removerAluno)
+})
 
 const queryString = new URLSearchParams(location.search)
 const codigoTurma = queryString.get("codigo")
@@ -69,7 +75,6 @@ function atualizarAlunos(pesquisa, matricula) {
       `)
     }
   }
-  // addRedirectListeners()
 }
 
 function adicionarAluno() {
@@ -120,10 +125,6 @@ function selecionarAluno(txt, callback) {
   for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
     botao.style.display = "none"
   }
-
-  // for (let turma of document.querySelectorAll(".turma__wrapper")) {
-  //     turma.removeEventListener("click", redirecionarParaTurma)
-  // }
 
   let menu = document.querySelector(".main__wrapper__menu")
 
@@ -189,8 +190,8 @@ function cadastrarNotas(matricula) {
   })
   form.addEventListener("submit", (e) => {
     let nota1 = document.querySelector("#input-nota1").value,
-        nota2 = document.querySelector("#input-nota2").value,
-        nota3 = document.querySelector("#input-nota3").value
+      nota2 = document.querySelector("#input-nota2").value,
+      nota3 = document.querySelector("#input-nota3").value
 
     document.querySelector(".modalpopup").remove()
 
@@ -217,4 +218,97 @@ function cadastrarNotas(matricula) {
       cancel.click()
     }
   })
+}
+
+function editarAluno(matricula) {
+  popup(`
+  <h2 class="modalpopup__h2">Editar Aluno:</h2>
+  <input type="text" class="modalpopup__form__input" id="input-matricula" placeholder="Matrícula">
+  <input type="text" class="modalpopup__form__input" id="input-nome" placeholder="Nome">
+  <input type="text" class="modalpopup__form__input" id="input-telefone" placeholder="Telefone">
+  <input type="text" class="modalpopup__form__input" id="input-email" placeholder="Email">
+  `)
+
+  let turmas = JSON.parse(localStorage.getItem("turmas"))
+
+
+  for (let i = 0; i < turmas.length; i++) {
+    if (turmas[i].codigo == turma.codigo) {
+      for (let aluno of turmas[i].alunos) {
+        if (aluno.matricula == matricula) {
+          document.querySelector("#input-matricula").value = aluno.matricula
+          document.querySelector("#input-nome").value = aluno.nome
+          document.querySelector("#input-telefone").value = aluno.telefone
+          document.querySelector("#input-email").value = aluno.email
+          break
+        }
+      }
+      break
+    }
+  }
+
+  let form = document.querySelector(".modalpopup__form")
+  let cancel = document.querySelectorAll(".modalpopup__form__button")[1]
+
+  cancel.addEventListener("click", (e) => {
+    e.preventDefault()
+    document.querySelector(".modalpopup").remove()
+  })
+  form.addEventListener("submit", (e) => {
+    let matriculaToEdit = document.querySelector("#input-matricula").value,
+      nome = document.querySelector("#input-nome").value,
+      telefone = document.querySelector("#input-telefone").value,
+      email = document.querySelector("#input-email").value
+
+    document.body.removeChild(document.querySelector(".modalpopup"))
+
+    for (let i = 0; i < turmas.length; i++) {
+      if (turmas[i].codigo == turma.codigo) {
+        for (let aluno of turmas[i].alunos) {
+          if (aluno.matricula == matricula) {
+            aluno.matricula = matriculaToEdit
+            aluno.nome = nome
+            aluno.telefone = telefone
+            aluno.email = email
+            break
+          }
+        }
+        break
+      }
+    }
+
+    localStorage.setItem("turmas", JSON.stringify(turmas))
+    atualizarAlunos("", "")
+    e.preventDefault()
+  })
+  form.addEventListener("keydown", (e) => {
+    if (e.key == "Escape") {
+      cancel.click()
+    }
+  })
+}
+
+function removerAluno(matricula) {
+  turma = getTurma()
+
+  let index = 0
+  for (let aluno of turma.alunos) {
+      if (aluno.matricula == matricula) {
+          if (!confirm(`Deseja realmente excluir o aluno: \n${aluno.nome} \nMatrícula: ${aluno.matricula}\n?`)) return;
+          turma.alunos.splice(index, 1)
+          break
+      }
+      index++
+  }
+
+  let turmas = JSON.parse(localStorage.getItem("turmas"))
+
+  for (let i = 0; i < turmas.length; i++) {
+    if (turmas[i].codigo == turma.codigo) {
+      turmas[i] = turma
+    }
+  }
+
+  localStorage.setItem("turmas", JSON.stringify(turmas))
+  atualizarAlunos("", "")
 }
