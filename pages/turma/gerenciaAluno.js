@@ -100,7 +100,7 @@ function adicionarAluno() {
     }
 
     localStorage.setItem("turmas", JSON.stringify(turmas))
-    atualizarTurmas("", "")
+    atualizarAlunos("", "")
     e.preventDefault()
   })
   form.addEventListener("keydown", (e) => {
