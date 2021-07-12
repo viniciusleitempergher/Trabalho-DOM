@@ -1,10 +1,10 @@
 export class Aluno {
-    constructor(matricula, nome, telefone, email, notas) {
+    constructor(matricula, nome, telefone, email) {
         this.matricula = matricula
         this.nome = nome
         this.telefone = telefone
         this.email = email
-        this.notas = notas
+        this.notas = []
         this.media = this.calculaMedia()
     }
     editarInformacoes(nome, telefone, email) {
