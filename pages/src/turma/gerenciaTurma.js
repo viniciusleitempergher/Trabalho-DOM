@@ -72,7 +72,9 @@ function selectTurma(txt, callback) {
 
     let menu = document.querySelector(".main__wrapper__menu")
 
+    let divAround = document.createElement("div")
     let cancelAction = document.createElement("button")
+
     cancelAction.className = "main__wrapper__menu__button"
     cancelAction.textContent = "Cancelar"
 
@@ -109,8 +111,9 @@ function selectTurma(txt, callback) {
         }
     }
 
-    menu.prepend(cancelAction)
-    menu.prepend(texto)
+    menu.prepend(divAround)
+    divAround.prepend(cancelAction)
+    divAround.prepend(texto)
 }
 
 function editarTurma(codigo) {
