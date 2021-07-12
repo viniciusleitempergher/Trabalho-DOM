@@ -1,4 +1,4 @@
-import { Turma } from '../turmas/turma.js'
+import { Turma } from '../turma/turma.js'
 import { Aluno } from './aluno.js'
 import popup from '../popup/modal.js'
 
