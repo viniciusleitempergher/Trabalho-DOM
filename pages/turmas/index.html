@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/2301278610.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="../src/popup/modal.css">
 </head>
 
 <body>
@@ -17,81 +18,46 @@
             <img class="logo__img" src="../../img/logo.svg" alt="">
             <h3>Transformando o futuro.</h3>
         </div>
-        
+
         <div class="main__wrapper">
             <div class="main__wrapper__menu">
-                <button class="main__wrapper__menu__button">
-                    Criar Sala
-                </button>
+                <div>
+                    <button class="main__wrapper__menu__button" id="adicionarbtn">
+                        Criar Sala
+                    </button>
 
-                <button class="main__wrapper__menu__button" id="editarbtn">
-                    Editar Sala
-                </button>
-                <button class="main__wrapper__menu__button" id="removerbtn">
-                    Remover Sala
-                </button>
+                    <button class="main__wrapper__menu__button" id="editarbtn">
+                        Editar Sala
+                    </button>
+                    <button class="main__wrapper__menu__button" id="removerbtn">
+                        Remover Sala
+                    </button>
+                </div>
+                <div>
+                    <input type="text" placeholder="Buscar turma" class="main__wrapper__menu__input"
+                        id="inputTurmaSearch">
 
-                <input type="text" placeholder="Buscar turma" class="main__wrapper__menu__input">
+                    <input type="text" placeholder="Buscar por código" class="main__wrapper__menu__input"
+                        id="inputCodigoSearch">
 
-                <input type="text" placeholder="Buscar por código" class="main__wrapper__menu__input">
-                <button class="button__search"><i class="fas fa-search"></i> Buscar</button>
+                    <div class="button">
+                        <button class="button__search" id="button__search"><i class="fas fa-search"></i>
+                            <p>Buscar</p>
+                        </button>
+                        <button class="button__search" id="button__clear__search"><i class="fas fa-times"></i>
+                            <p>Limpar</p>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="main__wrapper__turmas__wrapper">
                 <h2>Turmas</h2>
-                <div class="turma__wrapper">
-                    <p>Turma NodeJS #1</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma React #2</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma NodeJS #1</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma React #2</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma NodeJS #1</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma React #2</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma NodeJS #1</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma React #2</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma NodeJS #1</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
-                <div class="turma__wrapper">
-                    <p>Turma React #2</p>
-                    <i class="fas fa-edit button__editar-turma"></i>
-                    <i class="fas fa-trash button__remover-turma"></i>
-                </div>
+
             </div>
 
         </div>
     </div>
+    <script type="module" src="../src/turma/gerenciaTurma.js"></script>
 </body>
 
 </html>

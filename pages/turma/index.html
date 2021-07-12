@@ -10,6 +10,7 @@
   <script src="https://kit.fontawesome.com/2301278610.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../global.css">
   <link rel="stylesheet" href="css.css">
+  <link rel="stylesheet" href="../src/popup/modal.css">
 </head>
 
 <body>
@@ -28,43 +29,47 @@
 
         <p class="alunos__header">Matrícula</p>
         <p class="alunos__header">Nome</p>
-        <p class="alunos__header">Telefone</p>
-        <p class="alunos__header">Email</p>
-        <p class="alunos__header">Notas</p>
-        <p class="alunos__header">Média</p>
+        <p class="alunos__header noneOnMobile">Telefone</p>
+        <p class="alunos__header noneOnMobile">Email</p>
+        <p class="alunos__header noneOnMobile">Notas</p>
+        <p class="alunos__header noneOnMobile">Média</p>
 
-        
-        <p class="alunos__info">767898</p>
-        <p class="alunos__info">Vinícius Leitempergher</p>
-        <p class="alunos__info">47 91234-1234</p>
-        <p class="alunos__info">vinicius123@random.com</p>
-        <p class="alunos__info">10, 10, 10</p>
-        <p class="alunos__info">10</p>
-
-      
       </div>
 
       <div class="main__wrapper__menu">
-        <button class="main__wrapper__menu__button">
-          Adicionar Aluno
-        </button>
-        <button class="main__wrapper__menu__button">
-          Cadastrar Notas
-        </button>
-        <button class="main__wrapper__menu__button" id="editarbtn">
-          Editar Aluno
-        </button>
-        <button class="main__wrapper__menu__button" id="removerbtn">
-          Remover Aluno
-        </button>
+        <div>
+          <button class="main__wrapper__menu__button" id="adicionarbtn">
+            Adicionar Aluno
+          </button>
+          <button class="main__wrapper__menu__button" id="cadastrarbtn">
+            Cadastrar Notas
+          </button>
+          <button class="main__wrapper__menu__button" id="editarbtn">
+            Editar Aluno
+          </button>
+          <button class="main__wrapper__menu__button" id="removerbtn">
+            Remover Aluno
+          </button>
+        </div>
 
-        <input type="text" placeholder="Buscar aluno" class="main__wrapper__menu__input">
+        <div>
+          <input type="text" placeholder="Buscar aluno" class="main__wrapper__menu__input" id="input-buscarNomeAluno">
 
-        <input type="text" placeholder="Buscar pela matrícula" class="main__wrapper__menu__input">
-        <button class="button__search"><i class="fas fa-search"></i> Buscar</button>
+          <input type="text" placeholder="Buscar pela matrícula" class="main__wrapper__menu__input"
+            id="input-buscarMatriculaAluno">
+          <div class="button">
+            <button class="button__search" id="button__search"><i class="fas fa-search"></i>
+              <p>Buscar</p>
+            </button>
+            <button class="button__search" id="button__clear__search"><i class="fas fa-times"></i>
+              <p>Limpar</p>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <script type="module" src="../src/aluno/gerenciaAluno.js"></script>
 </body>
 
 </html>

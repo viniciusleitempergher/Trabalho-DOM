@@ -1,0 +1,56 @@
+.modalpopup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(17, 17, 17, 0.246);
+    top: 0;
+    left: 0;
+    animation-name: aparecer;
+    animation-duration: 0.4s;
+}
+
+.modalpopup__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--cor-cinza-claro);
+    padding: 50px;
+    border-radius: 15px;
+}
+.modalpopup__form__input {
+    margin-bottom: 8px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    background: #fff;
+    color: var(--cor-cinza-claro);
+}
+.modalpopup__form__input:focus {
+    outline: none;
+}
+.modalpopup__form__span {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.modalpopup__form__button {
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: none;
+    background: #fff;
+    color: var(--cor-cinza-claro);
+    cursor: pointer;
+}
+
+@keyframes aparecer {
+    from {
+        transform: scale(5%);
+    }
+    to {
+        transform: scale(100%);
+    }
+}

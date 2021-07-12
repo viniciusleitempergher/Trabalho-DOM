@@ -42,3 +42,49 @@
     margin-right: 10px;
     color: black;
 }
+
+@media screen and (max-width: 1290px) {
+    .main__wrapper {
+        padding: 0 60px;
+    }
+}
+
+@media screen and (max-width: 1132px) {
+    .main {
+        flex-direction: column;
+        text-align: center;
+    }
+    .main__wrapper {
+        padding: 0 120px;
+    }
+    #main__wrapper1 {
+        flex: none;
+    }
+    #main__wrapper2 {
+        flex: none;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    html {
+        font-size: 14px;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    .main__wrapper {
+        padding: 0 40px;
+    }
+    .main__wrapper__aula {
+        width: 230px;
+    }
+    .logo__img {
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .logo__img {
+        width: 260px;
+    }
+}
