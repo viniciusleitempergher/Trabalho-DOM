@@ -55,8 +55,10 @@ window.addEventListener("load", () => {
 })
 
 let redirecionarParaTurma = function (e) {
-    console.log("aoba");
-    window.location.href = "../turma/index.html"
+    let hashTagsSplitted = e.target.textContent.split("#"),
+        codigo = hashTagsSplitted[hashTagsSplitted.length - 1]
+
+    window.location.href = `../turma/index.html?codigo=${codigo}`
 }
 
 function selectTurma(txt, callback) {

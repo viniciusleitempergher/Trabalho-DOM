@@ -9,7 +9,6 @@
 }
 .main__wrapper__alunos {
   display: grid;
-  grid-template-columns: repeat(6, fill);
   align-items: center;
   justify-items: center;
   max-height: calc(75/100 * 100vh);
@@ -26,4 +25,5 @@
 }
 .alunos__info {
   margin-bottom: 10px;
+  padding: 5px 0;
 }
