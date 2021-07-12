@@ -1,4 +1,4 @@
-function MostrarModal(html, haveCancel) {
+function MostrarModal(html, haveCancel = true) {
     let divPopup = document.createElement("div")
     let form = document.createElement("form")
     let span = document.createElement("span")

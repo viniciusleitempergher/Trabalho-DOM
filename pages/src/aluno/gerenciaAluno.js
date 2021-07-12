@@ -129,6 +129,11 @@ function adicionarAluno() {
 }
 
 function selecionarAluno(txt, callback) {
+  for (let aluno of document.querySelectorAll(".alunos__info")) {
+    aluno.removeEventListener("click", abrirAluno)
+  }
+  active = false
+  
   for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
     botao.style.display = "none"
   }
@@ -375,10 +380,6 @@ let abrirAluno = function (e) {
       break
     }
   }
-
-  for (let aluno of document.querySelectorAll(".alunos__info")) {
-    aluno.removeEventListener("click", abrirAluno)
-  }
 }
 
 let active = false
@@ -388,7 +389,6 @@ function abrirAlunoOnMobile() {
     active = true
 
     for (let alunoP of document.querySelectorAll(".alunos__info")) {
-
       alunoP.addEventListener("click", abrirAluno)
     }
   } else if (active) {
