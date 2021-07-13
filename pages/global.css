@@ -5,11 +5,8 @@
     padding: 0;
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
-    --cor-cinza-escuro: rgb(39, 39, 39);
-    --cor-cinza: rgb(58, 58, 58);
-    --cor-cinza-claro: rgb(53, 53, 53);
-    --cor-banco: #fff;
-    color: var(--cor-banco);
+    color: var(--cor-branco);
+    transition: 0.8s;
 }
 
 .logobar {
@@ -25,6 +22,12 @@
 
 html {
     font-size: 17px;
+    --cor-cinza-escuro: rgb(39, 39, 39);
+    --cor-cinza: rgb(58, 58, 58);
+    --cor-cinza-claro: rgb(53, 53, 53);
+    --cor-branco: #fff;
+    --cor-menu-buttons: #fff;
+    --cor-bg-1: rgb(58, 58, 58);
 }
 
 h1, h2, h3 {
@@ -97,7 +100,7 @@ h1, h2, h3 {
     padding: 5px 15px;
     border-radius: 15px;
     border: none;
-    background: #fff;
+    background: var(--cor-menu-buttons);
     color: var(--cor-cinza);
     cursor: pointer;
     margin-top: 10px;
@@ -115,12 +118,17 @@ h1, h2, h3 {
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    background: #fff;
+    background: var(--cor-branco);
 }
 .modalpopup__h2 {
     margin-bottom: 15px;
 }
-
+#adicionarbtn {
+    background: var(--cor-menu-buttons);
+}
+#cadastrarbtn {
+    background: var(--cor-menu-buttons);
+}
 .button {
     display: flex;
     flex-direction: row;
@@ -155,4 +163,42 @@ h1, h2, h3 {
     .main__wrapper__menu {
         grid-template-columns: 1fr;
     }
+}
+
+.togglemode {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#togglemode-input {
+    width: 0;
+    height: 0;
+}
+#togglemode-input::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 20px;
+    background: var(--cor-cinza-claro);
+    border-radius: 40px;
+}
+#togglemode-input::after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    margin-left: 1px;
+    width: 18px;
+    height: 18px;
+    background: var(--cor-branco);
+    transition: 0.4s;
+}
+#togglemode-input:checked::after {
+    transform: translateX(20px);
+}
+#togglemode-txt {
+    margin-top: 20px;
+    margin-left: 45px;
 }
