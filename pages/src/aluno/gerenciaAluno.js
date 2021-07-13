@@ -106,10 +106,23 @@ function adicionarAluno() {
       telefone = document.querySelector("#input-telefone").value,
       email = document.querySelector("#input-email").value
 
+    if (matricula == "" || nome == "" || telefone == "" || email == "") {
+      e.preventDefault()
+      return alert("Nenhum campo pode estar vazio!")
+    }
+
     document.body.removeChild(document.querySelector(".modalpopup"))
 
     let turmas = JSON.parse(localStorage.getItem("turmas"))
+
     let aluno = new Aluno(matricula, nome, telefone, email)
+
+    try {
+      turma.cadastrarAluno(aluno)
+    } catch (e) {
+      alert(e.message)
+      return
+    }
 
     for (let i = 0; i < turmas.length; i++) {
       if (turmas[i].codigo == turma.codigo) {
@@ -133,7 +146,7 @@ function selecionarAluno(txt, callback) {
     aluno.removeEventListener("click", abrirAluno)
   }
   active = false
-  
+
   for (let botao of document.querySelectorAll(".main__wrapper__menu__button")) {
     botao.style.display = "none"
   }
@@ -274,6 +287,11 @@ function editarAluno(matricula) {
       telefone = document.querySelector("#input-telefone").value,
       email = document.querySelector("#input-email").value
 
+    if (matricula == "" || nome == "" || telefone == "" || email == "") {
+      e.preventDefault()
+      return alert("Nenhum campo pode estar vazio!")
+    }
+
     document.body.removeChild(document.querySelector(".modalpopup"))
 
     for (let i = 0; i < turmas.length; i++) {
@@ -396,5 +414,5 @@ function abrirAlunoOnMobile() {
       aluno.removeEventListener("click", abrirAluno)
     }
     active = false
-  } 
+  }
 }

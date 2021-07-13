@@ -28,6 +28,12 @@ function adicionarTurma() {
     })
     form.addEventListener("submit", (e) => {
         nome = document.querySelector("#input__nometurma").value
+
+        if (nome == "") {
+            e.preventDefault()
+            return alert("O nome não pode estar em branco!")
+        }
+
         document.body.removeChild(document.querySelector(".modalpopup"))
 
         if (turmas.length >= 1) {
@@ -126,6 +132,12 @@ function editarTurma(codigo) {
 
     form.addEventListener("submit", (e) => {
         let nome = document.querySelector("#input__nometurma").value
+
+        if (nome == "") {
+            e.preventDefault()
+            return alert("O nome não pode estar em branco!")
+        }
+
         document.querySelector(".modalpopup").remove()
 
         turmas = getTurmas()
