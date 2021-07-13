@@ -14,7 +14,7 @@
 }
 #main__wrapper1 {
     flex: 7;
-    background: var(--cor-cinza);
+    background: var(--cor-bg-1);
 }
 #main__wrapper2 {
     flex: 8;
@@ -89,6 +89,3 @@
     }
 }
 
-.togglemode {
-    display: none;
-}
