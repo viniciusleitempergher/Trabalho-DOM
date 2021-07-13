@@ -25,8 +25,8 @@
     padding: 10px 20px;
     border-radius: 15px;
     border: none;
-    background: #fff;
-    color: var(--cor-cinza-claro);
+    background: var(--cor-cinza-escuro);
+    color: var(--cor-branco);
 }
 .modalpopup__form__input:focus {
     outline: none;
@@ -41,7 +41,7 @@
     padding: 5px 10px;
     border-radius: 15px;
     border: none;
-    background: #fff;
+    background: var(--cor-branco);
     color: var(--cor-cinza-claro);
     cursor: pointer;
 }
