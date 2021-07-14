@@ -25,8 +25,6 @@ export function atualizarTurmas(pesquisa, codigo) {
             document.querySelector(".main__wrapper__turmas__wrapper").insertAdjacentHTML("beforeend", `
             <div class="turma__wrapper">
                 <p>${turma.nome} #${turma.codigo}</p>
-                <i class="fas fa-edit button__editar-turma"></i>
-                <i class="fas fa-trash button__remover-turma"></i>
             </div>
         `)
         }
