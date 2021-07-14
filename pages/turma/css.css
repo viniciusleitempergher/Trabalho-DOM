@@ -89,7 +89,6 @@ body {
   }
   .popup__alunos {
     display: grid;
-    align-items: center;
     justify-items: center;
   }
   .popup__alunos-title {
