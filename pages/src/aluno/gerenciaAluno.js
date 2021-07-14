@@ -400,19 +400,14 @@ let abrirAluno = function (e) {
   }
 }
 
-let active = false
-
 function abrirAlunoOnMobile() {
-  if (window.screen.width <= 520 && !active) {
-    active = true
-
+  if (window.screen.width <= 680) {
     for (let alunoP of document.querySelectorAll(".alunos__info")) {
       alunoP.addEventListener("click", abrirAluno)
     }
-  } else if (active) {
+  } else {
     for (let aluno of document.querySelectorAll(".alunos__info")) {
       aluno.removeEventListener("click", abrirAluno)
     }
-    active = false
   }
 }
