@@ -43,6 +43,10 @@
     color: black;
 }
 
+#togglemode-input::before {
+    background: var(--cor-bg-1);
+}
+
 @media screen and (max-width: 1290px) {
     .main__wrapper {
         padding: 0 60px;
