@@ -1,4 +1,4 @@
-import { atualizarTurmas } from "./atualizarTurmas"
+import { atualizarTurmas } from "./atualizarTurmas.js"
 
 /*
  Este arquivo pega as informações do Nome da Turma e Código digitadas nos inputs
